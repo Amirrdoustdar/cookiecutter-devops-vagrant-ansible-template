@@ -1,0 +1,6 @@
+project_slug: "{{cookiecutter.project_slug}}"
+
+app_user: "appuser"
+app_group: "appuser"
+app_root: "/opt/{{cookiecutter.project_slug}}"
+backend_src_path: "/srv/{{cookiecutter.project_slug}}/backend"

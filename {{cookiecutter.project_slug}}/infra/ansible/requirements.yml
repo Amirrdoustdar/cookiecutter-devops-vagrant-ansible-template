@@ -1,0 +1,15 @@
+---
+- src: "git@github.com:Amirrdoustdar/common_role.git"
+  scm: git
+  version: "main"
+  name: common_role
+
+- src: "git@github.com:Amirrdoustdar/docker_role.git"
+  scm: git
+  version: "main"
+  name: docker_role
+
+- src: "git@github.com:Amirrdoustdar/ansible-role-hardening.git"
+  scm: git
+  version: "main"
+  name: hardening_role

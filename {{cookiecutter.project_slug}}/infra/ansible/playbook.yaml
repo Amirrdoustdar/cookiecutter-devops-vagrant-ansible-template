@@ -1,0 +1,25 @@
+---
+- name: Configure server and deploy app
+  hosts: servers
+  become: yes
+
+  roles:
+    - common_role
+    - docker_role
+    - hardening_role
+
+  tasks:
+    - name: Ensure app root directory exists
+      file:
+        path: "{{ app_root }}"
+        state: directory
+        owner: "{{ app_user }}"
+        group: "{{ app_group }}"
+        mode: "0755"
+
+    - name: Deploy backend from synced folder
+      synchronize:
+        src: "{{ backend_src_path }}/"
+        dest: "{{ app_root }}/"
+        delete: yes
+      delegate_to: localhost
