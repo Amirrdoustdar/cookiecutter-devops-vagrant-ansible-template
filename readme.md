@@ -1,70 +1,111 @@
 # Cookiecutter DevOps Template (Vagrant + Ansible)
 
-A reusable Cookiecutter template that generates a backend + infra project with:
+A reusable Cookiecutter template for generating a clean backend +
+infrastructure project using:
 
-- `backend/` – application code
-- `infra/vagrant/` – VM provisioning using Vagrant
-- `infra/ansible/` – configuration using Ansible and external roles
-- `Makefile` – simple end-to-end automation
+-   **Vagrant** → reproducible development VMs\
+-   **Ansible** → server configuration via external roles\
+-   **Makefile** → simple end-to-end automation\
+-   **Modular Role Architecture** → common, docker, hardening
 
-## Features
+This template standardizes DevOps-style project structure and removes
+repetitive setup work.
 
-- Standardized project structure for backend + infrastructure
-- Vagrant VM with a fixed private IP
-- Ansible integration with three external roles:
-  - `common_role`
-  - `docker_role`
-  - `hardening_role`
-- Simple `make` targets for `init`, `infra`, `config`, and `destroy`
+## 🚀 Features
 
-## Usage
+-   Generates a complete project skeleton:
 
-```bash
+        {{project_slug}}/
+          backend/
+          infra/
+            vagrant/
+            ansible/
+          Makefile
+          README.md
+
+-   Infrastructure workflow:
+
+    -   Provision VM using Vagrant\
+    -   Configure server using Ansible\
+    -   Pull external roles via `requirements.yml`\
+    -   Deterministic, reproducible, modular infra
+
+-   Three independent roles:
+
+    -   `common_role` → base OS setup (users, packages)
+    -   `docker_role` → Docker Engine + Compose installation
+    -   `hardening_role` → SSH + UFW hardening
+
+-   Simple automation via Makefile:
+
+    -   `make init`
+    -   `make infra`
+    -   `make config`
+    -   `make destroy`
+
+## 📦 Directory Structure (Generated Project)
+
+    {{cookiecutter.project_slug}}/
+    ├── backend/
+    │   └── .gitkeep
+    ├── infra/
+    │   ├── ansible/
+    │   │   ├── group_vars/
+    │   │   │   └── all.yml
+    │   │   ├── inventory
+    │   │   ├── playbook.yml
+    │   │   └── requirements.yml
+    │   └── vagrant/
+    │       └── Vagrantfile
+    ├── Makefile
+    └── README.md
+
+## 🛠 Usage
+
+### 1) Install Cookiecutter
+
+``` bash
 pip install cookiecutter
+```
 
-cookiecutter https://github.com/YOUR_GITHUB_USERNAME/cookiecutter-devops-vagrant-ansible-template.git
-Answer the prompts:
+### 2) Generate a new project
 
-project_name
+``` bash
+cookiecutter https://github.com/amirdoustdar/cookiecutter-devops-vagrant-ansible-template.git
+```
 
-project_slug
+Prompt fields:
 
-vm_ip
+-   `project_name`
+-   `project_slug`
+-   `vm_ip`
+-   `vm_memory`
+-   `vm_cpus`
 
-vm_memory
+### 3) Infrastructure lifecycle
 
-vm_cpus
+``` bash
+make init
+make infra
+make config
+```
 
-Then:
+Destroy VM:
 
-bash
-Copy code
-cd <project_slug>
-make init     # install Ansible roles (from requirements.yml)
-make infra    # start Vagrant VM
-make config   # run Ansible playbook
-# make destroy  # tear down the VM
-External Ansible Roles
-This template expects these roles to be available via requirements.yml:
+``` bash
+make destroy
+```
 
-common_role – base system configuration
+## 🔗 External Ansible Roles
 
-docker_role – Docker installation and setup
+-   https://github.com/amirdoustdar/ansible-role-common\
+-   https://github.com/amirdoustdar/ansible-role-docker\
+-   https://github.com/amirdoustdar/ansible-role-hardening
 
-hardening_role – SSH and firewall hardening
+## 📄 License
 
-yaml
-Copy code
+MIT License.
 
-(بعداً لینک سه تا ریپوی role رو هم می‌تونی اضافه کنی.)
+## ⭐ Contributing
 
----
-
-## 5. دستورهای Git برای push کردن
-
-فرض می‌گیرم الان ساختار بالا رو تو یک فولدر مثل `cookiecutter-devops-vagrant-ansible-template/` ساختی.
-
-### 5.1. داخل فولدر برو
-
-```bash
-cd /path/to/cookiecutter-devops-vagrant-ansible-template
+Pull requests welcome.
